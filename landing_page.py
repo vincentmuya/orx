@@ -13,6 +13,6 @@ class LandingPage(BoxLayout):
 
         self.add_widget(Header())
         self.add_widget(CategoriesSection())
+        self.add_widget(Label(text="Hello World!"))
         self.add_widget(NavigationBar())
 
-        self.add_widget(Label(text="Hello World!"))
