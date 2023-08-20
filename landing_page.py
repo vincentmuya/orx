@@ -12,6 +12,8 @@ class LandingPage(BoxLayout):
         self.orientation = 'vertical'
 
         self.add_widget(Header())
+        self.add_widget(BoxLayout(size_hint_y=None, height=150))
+
         self.add_widget(CategoriesSection())
         self.add_widget(Label(text="Hello World!"))
         self.add_widget(NavigationBar())
