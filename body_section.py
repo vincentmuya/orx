@@ -1,14 +1,17 @@
+from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.label import Label
+from kivy.uix.button import Button
+from functools import partial
 
 
-class CategoriesSection(BoxLayout):
+class BodySection(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # Set the orientation of the CategoriesSection to vertical
+        # Set the orientation of the BodySection to vertical
         self.orientation = 'vertical'
 
         # Create a GridLayout to arrange categories in rows
@@ -40,6 +43,13 @@ class CategoriesSection(BoxLayout):
             category_caption = Label(text=caption, size_hint_y=None, height=30)
             category_layout.add_widget(category_caption)
 
+            # Create a button for the category
+            category_button = Button(text=caption)
+            category_layout.add_widget(category_button)
+
+            # Bind the button's on_release event to a method that handles it
+            category_button.bind(on_release=partial(self.on_category_button, category_name=caption))
+
             categories_grid.add_widget(category_layout)
 
             # Check if the current row in the GridLayout is full
@@ -51,3 +61,21 @@ class CategoriesSection(BoxLayout):
         # If there are remaining items that didn't fill the last row completely
         if categories_grid.children:
             self.add_widget(categories_grid)
+
+    def on_category_button(self, instance, category_name):
+        print(f"Selected category: {category_name}")
+        app = App.get_running_app()
+
+        # Make API request to get parent_id based on category_name
+        response = requests.get(f'http://localhost:8000/api/category-id/?category_name={category_name}')
+        if response.status_code == 200:
+            data = response.json()
+            parent_id = data.get('parent_id')
+            if parent_id is not None:
+                app.root.current = 'subcategories_screen'
+                # Load subcategories using the obtained parent_id
+                app.subcategories_screen.load_subcategories(parent_id)
+            else:
+                print("Category not found")
+        else:
+            print("Failed to get parent_id")

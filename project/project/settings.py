@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'app',
     'mptt',
     'allauth',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

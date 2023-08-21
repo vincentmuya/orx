@@ -1,6 +1,6 @@
 from kivy.uix.boxlayout import BoxLayout
 from header import Header
-from categories_section import CategoriesSection
+from body_section import BodySection
 from navigation_bar import NavigationBar
 from kivy.uix.label import Label
 
@@ -12,9 +12,8 @@ class LandingPage(BoxLayout):
         self.orientation = 'vertical'
 
         self.add_widget(Header())
-        self.add_widget(BoxLayout(size_hint_y=None, height=150))
+        self.add_widget(BoxLayout(size_hint_y=None, height=0))
 
-        self.add_widget(CategoriesSection())
-        self.add_widget(Label(text="Hello World!"))
+        self.add_widget(BodySection())
         self.add_widget(NavigationBar())
 
