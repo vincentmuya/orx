@@ -37,3 +37,12 @@ def get_parent_id_by_category_name(request):
         return JsonResponse({'parent_id': parent_id})
     except Category.DoesNotExist:
         return JsonResponse({'error': 'Category not found'}, status=404)
+
+
+def get_category_id(request, category_name):
+    try:
+        category = Category.objects.get(name=category_name)
+        category_id = category.id
+        return JsonResponse({'category_id': category_id})
+    except Category.DoesNotExist:
+        return JsonResponse({'error': 'Category not found'}, status=404)

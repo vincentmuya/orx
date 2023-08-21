@@ -69,7 +69,8 @@ class BodySection(BoxLayout):
         app = App.get_running_app()
 
         # Make API request to get category ID based on category name
-        response = requests.get(f'http://localhost:8000/api/category-id/?category_name={category_name}')
+        url = f'http://localhost:8000/api/category-id/{category_name}/'
+        response = requests.get(url)
         print("API Response Content:", response.content)
 
         if response.status_code == 200:
