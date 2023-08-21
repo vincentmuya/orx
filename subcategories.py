@@ -21,17 +21,14 @@ class SubcategoriesScreen(BoxLayout):
         else:
             try:
                 data = response.json()
-                # Process the data as needed
+                # Create Kivy buttons to display subcategories
+                for subcategory in data:
+                    subcategory_button = Button(text=subcategory['name'])
+                    self.add_widget(subcategory_button)
+                    subcategory_button.bind(on_release=self.on_subcategory_button)
             except requests.exceptions.JSONDecodeError as e:
                 print("Error decoding JSON response:", e)
                 print("Response content:", response.content)
-        data = response.json()
-
-        # Create Kivy buttons to display subcategories
-        for subcategory in data:
-            subcategory_button = Button(text=subcategory['name'])
-            self.add_widget(subcategory_button)
-            subcategory_button.bind(on_release=self.on_subcategory_button)
 
     def on_subcategory_button(self, instance):
         subcategory_name = instance.text

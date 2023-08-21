@@ -5,6 +5,7 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from functools import partial
+import requests
 
 
 class BodySection(BoxLayout):
