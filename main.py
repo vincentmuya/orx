@@ -14,13 +14,20 @@ class MyApp(App):
         landing_page_screen.add_widget(landing_page)
         self.screen_manager.add_widget(landing_page_screen)
 
-        # Create and add the subcategories screen
+        # Create and add the subcategories screen (Note: Do not create an instance here)
         subcategories_screen = Screen(name='subcategories_screen')
-        subcategories = SubcategoriesScreen(parent_id='')
-        subcategories_screen.add_widget(subcategories)
-        self.screen_manager.add_widget(subcategories_screen)
+        self.screen_manager.add_widget(subcategories_screen)  # Add the screen without an instance
 
         return self.screen_manager
+
+    def on_category_button(self, instance, category_name):
+        print(f"Selected category: {category_name}")
+        app = App.get_running_app()
+
+        # Set the category name in the subcategories screen
+        app.subcategories_screen.category_name = category_name
+
+        app.root.current = 'subcategories_screen'
 
 
 if __name__ == '__main__':

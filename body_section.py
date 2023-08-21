@@ -63,20 +63,25 @@ class BodySection(BoxLayout):
         if categories_grid.children:
             self.add_widget(categories_grid)
 
+    # Update your on_category_button method
     def on_category_button(self, instance, category_name):
         print(f"Selected category: {category_name}")
         app = App.get_running_app()
 
-        # Make API request to get parent_id based on category_name
+        # Make API request to get category ID based on category name
         response = requests.get(f'http://localhost:8000/api/category-id/?category_name={category_name}')
+        print("API Response Content:", response.content)
+
         if response.status_code == 200:
             data = response.json()
-            parent_id = data.get('parent_id')
-            if parent_id is not None:
+            category_id = data.get('category_id')
+            if category_id is not None:
+                # Update the category ID in the subcategories screen
+                app.subcategories_screen.category_id = category_id
+
+                # Switch to the subcategories screen
                 app.root.current = 'subcategories_screen'
-                # Load subcategories using the obtained parent_id
-                app.subcategories_screen.load_subcategories(parent_id)
             else:
-                print("Category not found")
+                print("Category ID not found")
         else:
-            print("Failed to get parent_id")
+            print("Failed to get category ID")
