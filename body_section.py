@@ -78,7 +78,7 @@ class BodySection(BoxLayout):
             category_id = data.get('category_id')
             if category_id is not None:
                 # Update the category ID in the subcategories screen
-                app.subcategories_screen.category_id = category_id
+                app.subcategories_screen.category_id = category_id  # Use app.subcategories_screen
 
                 # Switch to the subcategories screen
                 app.root.current = 'subcategories_screen'
