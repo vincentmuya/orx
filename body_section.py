@@ -6,6 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from functools import partial
 import requests
+from subcategories import SubcategoriesScreen
 
 
 class BodySection(BoxLayout):
@@ -77,8 +78,11 @@ class BodySection(BoxLayout):
             data = response.json()
             category_id = data.get('category_id')
             if category_id is not None:
-                # Update the category ID in the subcategories screen
-                app.subcategories_screen.category_id = category_id  # Use app.subcategories_screen
+                # Create an instance of SubcategoriesScreen with the correct arguments
+                subcategories_screen = SubcategoriesScreen(category_id=category_id, category_name=category_name)
+
+                # Set the subcategories screen in the app
+                app.subcategories_screen = subcategories_screen
 
                 # Switch to the subcategories screen
                 app.root.current = 'subcategories_screen'
