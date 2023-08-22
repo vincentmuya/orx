@@ -15,17 +15,22 @@ class SubcategoriesScreen(BoxLayout):
 
     def load_subcategories(self):
         # Make API request to Django backend to get parent_id based on category_name
-        response = requests.get(f'http://localhost:8000/api/category-id/?category_name={self.category_name}')
+        response = requests.get(f'http://localhost:8000/api/category-id/{self.category_name}/')
+        print("API Response Content Category ID:", response.content)
 
         if response.status_code == 200:
+            print("Response", response.status_code)
+
             data = response.json()
-            parent_id = data.get('parent_id')
+            parent_id = data.get('category_id')
 
             if parent_id is not None:
                 # Make another API request to get subcategories based on parent_id
                 subcategories_response = requests.get(f'http://localhost:8000/api/category/{parent_id}/subcategories/')
                 if subcategories_response.status_code == 200:
+
                     subcategories_data = subcategories_response.json()
+                    print("Parent ID", subcategories_response.content)
 
                     # Create Kivy buttons to display subcategories
                     for subcategory in subcategories_data:
