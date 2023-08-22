@@ -4,11 +4,11 @@ import requests
 
 
 class SubcategoriesScreen(BoxLayout):
-    def __init__(self, category_name, **kwargs):
+    def __init__(self, category_id, category_name, **kwargs):
         super().__init__(**kwargs)
 
         self.category_name = category_name  # Store the clicked category name
-        self.category_id = None  # Initialize the category_id attribute
+        self.category_id = category_id  # Initialize the category_id attribute
 
         self.orientation = 'vertical'
         self.load_subcategories()
