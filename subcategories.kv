@@ -1,8 +1,13 @@
-# subcategories.kv
-
 <SubcategoriesScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: root.category_name
-        # Other widgets...
+    orientation: 'vertical'
+
+    GridLayout:
+        id: grid_layout
+        cols: 1
+        spacing: '10dp'
+        padding: '10dp'
+
+        Button:
+            text: 'Test Subcategory 1'
+        Button:
+            text: 'Test Subcategory 2'

@@ -3,8 +3,6 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from landing_page import LandingPage
 from subcategories import SubcategoriesScreen
 
-import requests
-
 
 class MyApp(App):
     def build(self):
@@ -17,11 +15,11 @@ class MyApp(App):
         landing_page_screen.add_widget(landing_page)
         self.screen_manager.add_widget(landing_page_screen)
 
-        # Create and add the subcategories screen
-        subcategories_screen_screen = Screen(name='subcategories_screen')
-        subcategories_screen = SubcategoriesScreen('category_id', 'category_name')  # You can pass arguments here if needed
-        subcategories_screen_screen.add_widget(subcategories_screen)
-        self.screen_manager.add_widget(subcategories_screen_screen)
+        # Create a Screen to encapsulate the SubcategoriesScreen
+        subcategories_screen = Screen(name='subcategories_screen')
+        subcategories_content = SubcategoriesScreen('category_id', 'category_name')
+        subcategories_screen.add_widget(subcategories_content)
+        self.screen_manager.add_widget(subcategories_screen)
 
         return self.screen_manager
 
