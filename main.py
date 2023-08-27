@@ -15,9 +15,15 @@ class MyApp(App):
         landing_page_screen.add_widget(landing_page)
         self.screen_manager.add_widget(landing_page_screen)
 
+        # Read category_id and category_name from the file
+        with open('category_info.txt', 'r') as f:
+            lines = f.readlines()
+            category_id = int(lines[0].strip())
+            category_name = lines[1].strip()
+
         # Create a Screen to encapsulate the SubcategoriesScreen
         subcategories_screen = Screen(name='subcategories_screen')
-        subcategories_content = SubcategoriesScreen('category_id', 'category_name')
+        subcategories_content = SubcategoriesScreen(category_id, category_name)
         subcategories_screen.add_widget(subcategories_content)
         self.screen_manager.add_widget(subcategories_screen)
 

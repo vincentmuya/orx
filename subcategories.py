@@ -2,16 +2,13 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 import requests
-from kivy.clock import Clock
 
-
-Builder.load_file('subcategories.kv')
+Builder.load_file('subcategories.kv')  # Make sure to replace 'path_to_subcategories.kv' with the actual path
 
 
 class SubcategoriesScreen(BoxLayout):
     def __init__(self, category_id, category_name, **kwargs):
         super().__init__(**kwargs)
-        print("Loading SubcategoriesScreen from KV")
 
         self.category_name = category_name  # Store the clicked category name
         self.category_id = category_id  # Initialize the category_id attribute
@@ -35,16 +32,20 @@ class SubcategoriesScreen(BoxLayout):
                     subcategories_data = subcategories_response.json()
                     print("Subcategories & Parent ", subcategories_response.content)
 
-                    self.ids.grid_layout.clear_widgets()
+                    # Reference the GridLayout defined in the subcategories.kv file
+                    grid_layout = self.ids.grid_layout
+                    grid_layout.clear_widgets()
 
+                    # Clear any existing widgets in the GridLayout
+                    grid_layout.clear_widgets()
                     # Create Kivy buttons to display subcategories
                     for subcategory in subcategories_data:
-                        subcategory_name = subcategory['name']
-                        print(f"Creating subcategory button: {subcategory_name}")
-                        subcategory_button = Button(text=subcategory_name)
-                        self.ids.grid_layout.add_widget(subcategory_button)
+                        subcategory_button = Button(text=subcategory['name'])
+                        self.add_widget(subcategory_button)
                         subcategory_button.bind(on_release=self.on_subcategory_button)
-                    self.ids.grid_layout.do_layout()
+                    # Write the category_id and category_name to a file
+                    with open('category_info.txt', 'w') as f:
+                        f.write(f"{parent_id}\n{self.category_name}")
                 else:
                     print("Subcategories API endpoint not found")
             else:
@@ -53,7 +54,6 @@ class SubcategoriesScreen(BoxLayout):
             print("Failed to get parent_id")
 
     def on_subcategory_button(self, instance):
-        print("Button clicked:", instance.text)
         subcategory_name = instance.text
         print(f"Selected subcategory: {subcategory_name}")
         # You can implement further navigation or actions here
