@@ -15,6 +15,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to="posts/", blank=True, null=True)
     category = models.ForeignKey('category', related_name="categories", on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Product, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
 
