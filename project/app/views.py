@@ -9,9 +9,15 @@ from django.http import JsonResponse
 # Create your views here.
 class ProductList(APIView):
     def get(self, request, format=None):
-        all_product = Product.objects.all()
-        serializers = ProductSerializer(all_product, many=True)
-        return Response(serializers.data)
+        category_id = request.query_params.get('category_id')
+
+        if category_id is not None:
+            products = Product.objects.filter(category=category_id)
+        else:
+            products = Product.objects.all()
+
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
 
 
 class CategoryList(APIView):

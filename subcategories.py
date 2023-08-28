@@ -56,4 +56,27 @@ class SubcategoriesScreen(BoxLayout):
     def on_subcategory_button(self, instance):
         subcategory_name = instance.text
         print(f"Selected subcategory: {subcategory_name}")
-        # You can implement further navigation or actions here
+
+        # Make an API request to get the category_id based on the subcategory_name
+        category_id_response = requests.get(f'http://localhost:8000/api/category-id/{subcategory_name}/')
+        print("Category ID Response Response:", category_id_response.content)
+
+        if category_id_response.status_code == 200:
+            category_id_data = category_id_response.json()
+            category_id = category_id_data.get('category_id')
+            print("API Category ID Response:", category_id)
+
+            if category_id is not None:
+                # Make an API request to get products based on the category_id
+                products_response = requests.get(f'http://localhost:8000/api/product/?category_id={category_id}')
+                print("API Product Response:", products_response.content)
+                if products_response.status_code == 200:
+                    products_data = products_response.json()
+                    print("Products:", products_data)
+
+                else:
+                    print("Failed to get products for the selected category_id")
+            else:
+                print("Category ID not found in the response")
+        else:
+            print("Failed to get category_id for the selected subcategory")
