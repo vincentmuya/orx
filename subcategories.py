@@ -2,9 +2,8 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 import requests
-from kivy.uix.label import Label
 from kivy.app import App
-
+from kivy.uix.screenmanager import SlideTransition
 
 Builder.load_file('subcategories.kv')
 
