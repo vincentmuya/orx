@@ -2,8 +2,11 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 import requests
+from kivy.uix.label import Label
+from kivy.app import App
 
-Builder.load_file('subcategories.kv')  # Make sure to replace 'path_to_subcategories.kv' with the actual path
+
+Builder.load_file('subcategories.kv')
 
 
 class SubcategoriesScreen(BoxLayout):
@@ -34,6 +37,7 @@ class SubcategoriesScreen(BoxLayout):
 
                     # Reference the GridLayout defined in the subcategories.kv file
                     grid_layout = self.ids.grid_layout
+                    print("self.ids:", self.ids)
                     grid_layout.clear_widgets()
 
                     # Clear any existing widgets in the GridLayout
@@ -73,6 +77,17 @@ class SubcategoriesScreen(BoxLayout):
                 if products_response.status_code == 200:
                     products_data = products_response.json()
                     print("Products:", products_data)
+
+                    # Access the ScreenManager through the App instance
+                    app = App.get_running_app()
+                    products_screen = app.root.get_screen('products')
+
+                    # Load the products into the ProductsScreen instance
+                    products_screen.load_products(products_data)
+
+                    # Transition to the ProductsScreen
+                    app.root.transition = SlideTransition(direction='left')
+                    app.root.current = 'products'
 
                 else:
                     print("Failed to get products for the selected category_id")

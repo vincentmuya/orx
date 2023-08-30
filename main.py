@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.uix.screenmanager import Screen, ScreenManager
 from landing_page import LandingPage
 from subcategories import SubcategoriesScreen
+from products import ProductsScreen
 
 
 class MyApp(App):
@@ -26,6 +27,10 @@ class MyApp(App):
         subcategories_content = SubcategoriesScreen(category_id, category_name)
         subcategories_screen.add_widget(subcategories_content)
         self.screen_manager.add_widget(subcategories_screen)
+
+        # Create the ProductsScreen instance and add it to the ScreenManager
+        products_screen = ProductsScreen(name='products')
+        self.screen_manager.add_widget(products_screen)
 
         return self.screen_manager
 
