@@ -1,3 +1,31 @@
+<ProductCard>:
+    orientation: 'vertical'
+    padding: dp(100), dp(10), dp(50), dp(10)
+    size_hint: None, None
+    size: self.minimum_size
+
+    Image:
+        source: root.image_source
+        size_hint_y: None
+        height: dp(200)
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+
+        Label:
+            text: root.title
+            font_size: '18sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: "Go somewhere"
+            size_hint_y: None
+            height: dp(40)
+            on_release: root.go_somewhere()
+
+
 <ProductsScreen>:
     BoxLayout:
         orientation: 'vertical'

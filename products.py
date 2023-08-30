@@ -1,8 +1,20 @@
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import StringProperty
 
 Builder.load_file('products.kv')
+
+
+class ProductCard(BoxLayout):
+    title = StringProperty()
+    price = StringProperty()
+    image_source = StringProperty()
+
+    def view_product(self):
+        # Define the behavior when the button is pressed
+        pass
 
 
 class ProductsScreen(Screen):
@@ -14,5 +26,6 @@ class ProductsScreen(Screen):
         products_layout.clear_widgets()
 
         for product in products_data:
-            product_label = Label(text=f"Title: {product['title']}\nPrice: {product['price']}")
-            products_layout.add_widget(product_label)
+            product_card = ProductCard(title=product['title'], price=str(product['price']),
+                                       image_source=product['image'])
+            products_layout.add_widget(product_card)
