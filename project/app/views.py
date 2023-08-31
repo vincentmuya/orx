@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .models import Product, Category
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -52,3 +52,9 @@ def get_category_id(request, category_name):
         return JsonResponse({'category_id': category_id})
     except Category.DoesNotExist:
         return JsonResponse({'error': 'Category not found'}, status=404)
+
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug)
+    serializer = ProductSerializer(product)
+    return JsonResponse(serializer.data)
