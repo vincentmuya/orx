@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from landing_page import LandingPage
 from subcategories import SubcategoriesScreen
 from products import ProductsScreen
-
+from product_details import ProductDetailsScreen
 
 class MyApp(App):
     def build(self):
@@ -31,6 +31,10 @@ class MyApp(App):
         # Create the ProductsScreen instance and add it to the ScreenManager
         products_screen = ProductsScreen(name='products')
         self.screen_manager.add_widget(products_screen)
+
+        # Create the ProductsDetailsScreen instance and add it to the ScreenManager
+        product_details_screen = ProductDetailsScreen(name='product_details')
+        self.screen_manager.add_widget(product_details_screen)
 
         return self.screen_manager
 

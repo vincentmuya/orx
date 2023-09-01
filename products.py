@@ -34,7 +34,7 @@ class ProductCard(BoxLayout):
             product_details_screen = app.root.get_screen('product_details')
 
             # Load the products into the ProductsScreen instance
-            product_details_screen.load_products(product_details)
+            product_details_screen.load_details(product_details)
 
             # Transition to the ProductsScreen
             app.root.transition = SlideTransition(direction='left')
