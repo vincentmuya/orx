@@ -18,12 +18,13 @@
             font_size: '18sp'
             size_hint_y: None
             height: self.texture_size[1]
+            on_touch_down: self.parent.parent.view_product()
 
         Button:
-            text: "Go somewhere"
+            text: 'View Details'
+            on_release: root.view_product()
             size_hint_y: None
             height: dp(40)
-            on_release: root.view_product()
 
 
 <ProductsScreen>:
