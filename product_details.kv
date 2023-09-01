@@ -1,0 +1,37 @@
+<ProductDetailsScreen>:
+    BoxLayout:
+        id: product_details_layout
+        orientation: 'vertical'
+        padding: dp(10)
+
+        Label:
+            id: title_label  # Define the ID for the title label
+            text: root.title
+            font_size: '18sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            id: price_label  # Define the ID for the price label
+            text: root.price
+            font_size: '16sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+<ProductDetailsScreen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+
+        Label:
+            text: root.title
+            font_size: '18sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            text: root.price
+            font_size: '18sp'
+            size_hint_y: None
+            height: self.texture_size[1]

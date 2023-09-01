@@ -47,11 +47,6 @@ class ProductCard(BoxLayout):
         #     print("Failed to fetch product details.")
 
 
-class ProductDetailScreen(Screen):
-    title = StringProperty()
-    price = StringProperty()
-
-
 class ProductsScreen(Screen):
     def load_products(self, products_data):
         print("Loading products...")
