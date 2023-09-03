@@ -38,7 +38,7 @@ class MyApp(App):
         self.screen_manager.add_widget(product_details_screen)
 
         # Create the ProductsDetailsScreen instance and add it to the ScreenManager
-        add_product_screen = AddProductsScreen(name='add_product')
+        add_product_screen = AddProductsScreen(name='load_form_fields_from_api')
         self.screen_manager.add_widget(add_product_screen)
 
         return self.screen_manager

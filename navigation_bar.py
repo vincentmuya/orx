@@ -51,12 +51,12 @@ class NavigationBar(BoxLayout):
     def on_add_product_button(self, instance):
         # Access the ScreenManager through the App instance
         app = App.get_running_app()
-        add_product_screen = app.root.get_screen('add_product')
+        add_product_screen = app.root.get_screen('load_form_fields_from_api')
 
         # Load the products into the ProductsScreen instance
-        add_product_screen.add_product()
+        add_product_screen.load_form_fields_from_api()
 
         # Transition to the ProductsScreen
         app.root.transition = SlideTransition(direction='left')
-        app.root.current = 'add_product'
+        app.root.current = 'load_form_fields_from_api'
         pass
