@@ -12,3 +12,9 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("name", 'id', "parent_id",)
+
+
+class NewProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        exclude = ['seller', 'slug']

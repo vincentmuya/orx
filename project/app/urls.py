@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import re_path as url
 from . import views
-from .views import get_category_id
+from .views import get_category_id, NewProductAPIView
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^api/category/(?P<parent_id>\d+)/subcategories/$', views.SubcategoryList.as_view()),  # Moved up
     url(r'^api/category/$', views.CategoryList.as_view()),
     url(r'^api/category-id/(?P<category_name>[\w\-]+)/$', get_category_id, name='get_category_id'),
+    url(r'^api/new-product/$', views.NewProductAPIView.as_view(), name='new-product-api'),
 
 ]
 

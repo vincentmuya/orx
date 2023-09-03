@@ -2,8 +2,13 @@ from django.shortcuts import render,get_object_or_404
 from .models import Product, Category
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import ProductSerializer, CategorySerializer
+from .serializer import ProductSerializer, CategorySerializer, NewProductSerializer
 from django.http import JsonResponse
+from .forms import NewProduct
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 
 # Create your views here.
@@ -58,3 +63,32 @@ def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug)
     serializer = ProductSerializer(product)
     return JsonResponse(serializer.data)
+
+
+# @csrf_exempt
+# def new_product(request):
+#     current_user = request.user
+#     if request.method == 'POST':
+#         form = NewProduct(request.POST, request.FILES)
+#         if form.is_valid():
+#             product = form.save(commit=False)
+#             product.seller = current_user
+#             product.save()
+#             # Return a success response
+#             return JsonResponse({'message': 'Product created successfully'})
+#         else:
+#             # Return an error response with form errors
+#             errors = form.errors.as_json()
+#             return JsonResponse({'errors': errors}, status=400)
+#     else:
+#         # Return an error response for non-POST requests
+#         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+#
+
+class NewProductAPIView(APIView):
+    def post(self, request):
+        serializer = NewProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()  # Save the data to the database
+            return Response({'message': 'Product created successfully'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
