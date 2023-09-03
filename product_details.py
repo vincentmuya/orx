@@ -8,6 +8,8 @@ Builder.load_file('product_details.kv')
 class ProductDetailsScreen(Screen):
     title = StringProperty()
     price = StringProperty()
+    description = StringProperty()
+
 
     def load_details(self, product_details):
         print("Loading product_details...")
@@ -18,7 +20,10 @@ class ProductDetailsScreen(Screen):
 
         self.title = product_details['title']
         self.price = str(product_details['price'])
+        self.description = product_details['description']
         title_label = self.ids.title_label
         title_label.text = self.title
         price_label = self.ids.price_label
         price_label.text = self.price
+        description_label = self.ids.description_label
+        description_label.text = self.description

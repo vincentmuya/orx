@@ -39,12 +39,8 @@ class ProductCard(BoxLayout):
             # Transition to the ProductsScreen
             app.root.transition = SlideTransition(direction='left')
             app.root.current = 'product_details'
-        pass
-        #     # Get the instance of the ProductDetailScreen and update its properties
-        #     product_detail_screen = app.root.ids.product_detail_screen
-        #     product_detail_screen.update_product_details(product_details)
-        # else:
-        #     print("Failed to fetch product details.")
+        else:
+            print("Failed to fetch product details.")
 
 
 class ProductsScreen(Screen):

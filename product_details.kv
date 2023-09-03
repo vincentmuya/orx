@@ -18,6 +18,13 @@
             size_hint_y: None
             height: self.texture_size[1]
 
+        Label:
+            id: description_label  # Define the ID for the price label
+            text: root.price
+            font_size: '16sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
 <ProductDetailsScreen>:
 
     BoxLayout:
@@ -32,6 +39,12 @@
 
         Label:
             text: root.price
+            font_size: '18sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            text: root.description
             font_size: '18sp'
             size_hint_y: None
             height: self.texture_size[1]
