@@ -18,8 +18,9 @@ class AddProductsScreen(Screen):
 
     def load_form_fields_from_api(self):
         # Make a GET request to the API to fetch form field data
-        api_url = 'http://localhost:8000/api/new-product/'  # Replace with the actual API endpoint
+        api_url = 'http://localhost:8000/api/new-product-fields/'  # Replace with the actual API endpoint
         response = requests.get(api_url)
+        print("API Form Response :", response.content)
 
         if response.status_code == 200:
             api_data = response.json()

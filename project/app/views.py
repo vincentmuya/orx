@@ -1,14 +1,14 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Product, Category
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProductSerializer, CategorySerializer, NewProductSerializer
 from django.http import JsonResponse
 from .forms import NewProduct
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 # Create your views here.
@@ -92,3 +92,16 @@ class NewProductAPIView(APIView):
             serializer.save()  # Save the data to the database
             return Response({'message': 'Product created successfully'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_form_fields(request):
+    # Define the form fields and their default values
+    form_fields = {
+        'title': '',
+        'description': '',
+        'price': None,
+        'category': None,  # You may need to specify a default category ID or None based on your requirements
+    }
+
+    return Response(form_fields)

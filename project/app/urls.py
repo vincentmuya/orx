@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^api/category/$', views.CategoryList.as_view()),
     url(r'^api/category-id/(?P<category_name>[\w\-]+)/$', get_category_id, name='get_category_id'),
     url(r'^api/new-product/$', views.NewProductAPIView.as_view(), name='new-product-api'),
+    url(r'^api/new-product-fields/$', views.get_form_fields, name='get-form-fields'),
 
 ]
 
