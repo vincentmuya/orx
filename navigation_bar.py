@@ -1,6 +1,8 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.graphics import Color, Rectangle
+from kivy.app import App
+from kivy.uix.screenmanager import SlideTransition
 
 
 class NavigationBar(BoxLayout):
@@ -34,6 +36,7 @@ class NavigationBar(BoxLayout):
         # Add Add Product Button
         add_product_button = Button(text="Add Product", size_hint=(None, None), size=(150, 50))
         container.add_widget(add_product_button)
+        add_product_button.bind(on_release=self.on_add_product_button)
 
         # Add Contact Button
         contact_button = Button(text="Contact", size_hint=(None, None), size=(150, 50))
@@ -44,3 +47,16 @@ class NavigationBar(BoxLayout):
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos
         self.rect.size = instance.size
+
+    def on_add_product_button(self, instance):
+        # Access the ScreenManager through the App instance
+        app = App.get_running_app()
+        add_product_screen = app.root.get_screen('add_product')
+
+        # Load the products into the ProductsScreen instance
+        add_product_screen.add_product()
+
+        # Transition to the ProductsScreen
+        app.root.transition = SlideTransition(direction='left')
+        app.root.current = 'add_product'
+        pass

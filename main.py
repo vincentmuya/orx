@@ -4,6 +4,7 @@ from landing_page import LandingPage
 from subcategories import SubcategoriesScreen
 from products import ProductsScreen
 from product_details import ProductDetailsScreen
+from new_product import AddProductsScreen
 
 class MyApp(App):
     def build(self):
@@ -35,6 +36,10 @@ class MyApp(App):
         # Create the ProductsDetailsScreen instance and add it to the ScreenManager
         product_details_screen = ProductDetailsScreen(name='product_details')
         self.screen_manager.add_widget(product_details_screen)
+
+        # Create the ProductsDetailsScreen instance and add it to the ScreenManager
+        add_product_screen = AddProductsScreen(name='add_product')
+        self.screen_manager.add_widget(add_product_screen)
 
         return self.screen_manager
 
