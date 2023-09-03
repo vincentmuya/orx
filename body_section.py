@@ -22,15 +22,15 @@ class BodySection(BoxLayout):
 
         # Example category data
         categories = [
-            ('image1.png', 'Car and Vehicles'),
-            ('image2.png', 'Electronics'),
-            ('image3.png', 'Fashion'),
-            ('image4.png', 'Food and Agriculture'),
-            ('image5.png', 'Health And Beauty'),
-            ('image6.png', 'Hobby, Sports And Kids'),
-            ('image7.png', 'Home, Furniture And Appliances'),
-            ('image8.png', 'Industry Machinery and Tools'),
-            ('image9.png', 'Jobs'),
+            ('images/icons/cars.png', 'Car and Vehicles'),
+            ('images/icons/electronics.png', 'Electronics'),
+            ('images/icons/fashion.png', 'Fashion'),
+            ('images/icons/food.png', 'Food and Agriculture'),
+            ('images/icons/hair.png', 'Health And Beauty'),
+            ('images/icons/hobbies.png', 'Hobby, Sports And Kids'),
+            ('images/icons/furniture.png', 'Home, Furniture And Appliances'),
+            ('images/icons/industry.png', 'Industry Machinery and Tools'),
+            ('images/icons/jobs.png', 'Jobs'),
             # Add more categories as needed
         ]
 
@@ -38,19 +38,15 @@ class BodySection(BoxLayout):
             category_layout = BoxLayout(orientation='vertical', size_hint=(None, None))
 
             # Add an Image for the category
-            category_image = Image(source=image_source, size_hint_y=None, height=40)
+            category_image = Image(source=image_source, size_hint_y=None, height=60)
             category_layout.add_widget(category_image)
 
             # Add a Label for the caption
-            category_caption = Label(text=caption, size_hint_y=None, height=30)
+            category_caption = Label(text=caption, size_hint_y=None, height=20)
             category_layout.add_widget(category_caption)
 
-            # Create a button for the category
-            category_button = Button(text=caption)
-            category_layout.add_widget(category_button)
-
-            # Bind the button's on_release event to a method that handles it
-            category_button.bind(on_release=partial(self.on_category_button, category_name=caption))
+            # Bind the category_caption's on_touch_down event to a method that handles it
+            category_caption.bind(on_touch_down=partial(self.on_category_caption, category_name=caption))
 
             categories_grid.add_widget(category_layout)
 
@@ -65,28 +61,33 @@ class BodySection(BoxLayout):
             self.add_widget(categories_grid)
 
     # Update your on_category_button method
-    def on_category_button(self, instance, category_name):
-        print(f"Selected category: {category_name}")
-        app = App.get_running_app()
+    def on_category_caption(self, instance, touch, category_name):
+        if touch.is_mouse_scrolling:
+            return  # Ignore mouse scroll events
 
-        # Make API request to get category ID based on category name
-        url = f'http://localhost:8000/api/category-id/{category_name}/'
-        response = requests.get(url)
-        print("API Response Content:", response.content)
+        if instance.collide_point(*touch.pos):
+            category_name = instance.text
+            print(f"Selected category: {category_name}")
+            app = App.get_running_app()
 
-        if response.status_code == 200:
-            data = response.json()
-            category_id = data.get('category_id')
-            if category_id is not None:
-                # Create an instance of SubcategoriesScreen with the correct arguments
-                subcategories_screen = SubcategoriesScreen(category_id=category_id, category_name=category_name)
+            # Make API request to get category ID based on category name
+            url = f'http://localhost:8000/api/category-id/{category_name}/'
+            response = requests.get(url)
+            print("API Response Content:", response.content)
 
-                # Set the subcategories screen in the app
-                app.subcategories_screen = subcategories_screen
+            if response.status_code == 200:
+                data = response.json()
+                category_id = data.get('category_id')
+                if category_id is not None:
+                    # Create an instance of SubcategoriesScreen with the correct arguments
+                    subcategories_screen = SubcategoriesScreen(category_id=category_id, category_name=category_name)
 
-                # Switch to the subcategories screen
-                app.root.current = 'subcategories_screen'
+                    # Set the subcategories screen in the app
+                    app.subcategories_screen = subcategories_screen
+
+                    # Switch to the subcategories screen
+                    app.root.current = 'subcategories_screen'
+                else:
+                    print("Category ID not found")
             else:
-                print("Category ID not found")
-        else:
-            print("Failed to get category ID")
+                print("Failed to get category ID")
