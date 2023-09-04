@@ -4,6 +4,7 @@ from kivy.lang import Builder
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.filechooser import FileChooserIconView
 
 Builder.load_file('new_product.kv')
 
@@ -30,6 +31,10 @@ class AddProductsScreen(Screen):
 
             # Create form fields based on the API data
             for field_name, field_value in api_data.items():
+                if field_name == 'image':  # Check if the field is for uploading an image
+                    file_chooser = FileChooserIconView()
+                    self.form_fields[field_name] = file_chooser
+                    self.ids.layout.add_widget(file_chooser)
                 text_input = TextInput(hint_text=field_name)
                 self.form_fields[field_name] = text_input
                 self.ids.layout.add_widget(text_input)  # Add to the layout

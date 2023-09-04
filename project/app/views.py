@@ -102,6 +102,7 @@ def get_form_fields(request):
         'description': '',
         'price': None,
         'category': None,  # You may need to specify a default category ID or None based on your requirements
+        'image': None,
     }
 
     return Response(form_fields)
