@@ -29,6 +29,13 @@ class NavigationBar(BoxLayout):
         home_button = Button(text="Home", size_hint=(None, None), size=(100, 50))
         container.add_widget(home_button)
 
+        # Define a function to switch to the 'landing_page' screen
+        def switch_to_landing_page(instance):
+            app = App.get_running_app()
+            app.root.current = 'landing_page'
+
+        home_button.bind(on_release=switch_to_landing_page)
+
         # Add Profile Button
         profile_button = Button(text="Profile", size_hint=(None, None), size=(100, 50))
         container.add_widget(profile_button)

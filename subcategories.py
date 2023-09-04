@@ -4,6 +4,7 @@ from kivy.uix.button import Button
 import requests
 from kivy.app import App
 from kivy.uix.screenmanager import SlideTransition
+from navigation_bar import NavigationBar
 
 Builder.load_file('subcategories.kv')
 
@@ -17,6 +18,8 @@ class SubcategoriesScreen(BoxLayout):
 
         self.orientation = 'vertical'
         self.load_subcategories()
+        self.add_widget(NavigationBar())
+
 
     def load_subcategories(self):
         # Make API request to Django backend to get parent_id based on category_name

@@ -5,6 +5,7 @@ from kivy.properties import StringProperty
 import requests
 from kivy.app import App
 from kivy.uix.screenmanager import SlideTransition
+from navigation_bar import NavigationBar
 
 
 Builder.load_file('products.kv')
@@ -55,3 +56,5 @@ class ProductsScreen(Screen):
             product_card = ProductCard(title=product['title'], price=str(product['price']),
                                        image_source=product['image'], product_id=str(product['id']), slug=product['slug'])
             products_layout.add_widget(product_card)
+
+        self.add_widget(NavigationBar())

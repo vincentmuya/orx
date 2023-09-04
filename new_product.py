@@ -5,6 +5,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserIconView
+from navigation_bar import NavigationBar
 
 Builder.load_file('new_product.kv')
 
@@ -16,6 +17,7 @@ class AddProductsScreen(Screen):
         self.form_fields = {}  # Store form fields in a dictionary
         self.form_fields_loaded = False  # Flag to track if form fields are loaded
 
+        self.add_widget(NavigationBar())
     def load_form_fields_from_api(self):
         if self.form_fields_loaded:
             return

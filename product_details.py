@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
 from kivy.lang import Builder
+from navigation_bar import NavigationBar
 
 Builder.load_file('product_details.kv')
 
@@ -27,3 +28,5 @@ class ProductDetailsScreen(Screen):
         price_label.text = self.price
         description_label = self.ids.description_label
         description_label.text = self.description
+
+        self.add_widget(NavigationBar())
