@@ -4,21 +4,20 @@ from kivy.lang import Builder
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty  # Import ObjectProperty
 
 Builder.load_file('new_product.kv')
 
 
 class AddProductsScreen(Screen):
-    layout = ObjectProperty()  # Define an ObjectProperty for the BoxLayout
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.form_fields = {}  # Store form fields in a dictionary
         self.form_fields_loaded = False  # Flag to track if form fields are loaded
 
-        # Create and add form fields dynamically based on API data
-        self.load_form_fields_from_api()
+    def load_form_fields_from_api(self):
+        if self.form_fields_loaded:
+            return
 
     def load_form_fields_from_api(self):
         # Make a GET request to the API to fetch form field data
@@ -38,10 +37,8 @@ class AddProductsScreen(Screen):
                 print("self.form_fields:", self.form_fields)
 
                 # Add a Submit button
-                submit_button = Button(text="Submit", on_release=self.submit_form)
+                # submit_button = Button(text="Submit", on_release=self.submit_form)
                 # self.layout.add_widget(submit_button)  # Add to the layout
-
-                self.form_fields_loaded = True  # Set the flag to True to prevent further loading
 
     def submit_form(self, instance):
         # Collect form data from the form fields
