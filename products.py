@@ -6,6 +6,7 @@ import requests
 from kivy.app import App
 from kivy.uix.screenmanager import SlideTransition
 from navigation_bar import NavigationBar
+from kivy.uix.image import AsyncImage
 
 
 Builder.load_file('products.kv')
@@ -53,8 +54,11 @@ class ProductsScreen(Screen):
         products_layout.clear_widgets()
 
         for product in products_data:
+            # Construct the full image URL
+            full_image_url = f"http://localhost:8000{product['image']}"
+            print("Image URL:", full_image_url)
             product_card = ProductCard(title=product['title'], price=str(product['price']),
-                                       image_source=product['image'], product_id=str(product['id']), slug=product['slug'])
+                                       image_source=full_image_url, product_id=str(product['id']), slug=product['slug'])
             products_layout.add_widget(product_card)
 
         self.add_widget(NavigationBar())

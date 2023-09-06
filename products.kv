@@ -1,13 +1,12 @@
 <ProductCard>:
     orientation: 'vertical'
-    padding: dp(100), dp(10), dp(50), dp(10)
-    size_hint: None, None
     size: self.minimum_size
 
-    Image:
-        source: root.image_source
+    AsyncImage:
+        id: image_source
+        source: root.image_source  # Bind the source to the image_source property
         size_hint_y: None
-        height: dp(200)
+        height: '200dp'  # Set the desired image height
 
     BoxLayout:
         orientation: 'vertical'
@@ -16,14 +15,12 @@
         Label:
             text: root.title
             font_size: '18sp'
-            size_hint_y: None
             height: self.texture_size[1]
             on_touch_down: self.parent.parent.view_product()
 
         Button:
             text: 'View Details'
             on_release: root.view_product()
-            size_hint_y: None
             height: dp(40)
 
 
