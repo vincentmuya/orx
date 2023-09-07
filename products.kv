@@ -1,23 +1,35 @@
 <ProductCard>:
     BoxLayout:
         orientation: 'vertical'
-        padding: dp(180)
+        padding: dp(100)
+        spacing: '-50dp'
+
 
         AsyncImage:
             id: image_source
             source: root.image_source  # Bind the source to the image_source property
             size_hint_y: None
             height: '200dp'  # Set the desired image height
+            on_touch_down: root.view_product() if self.collide_point(*args[1].pos) else None
+
 
         Label:
-            text: root.title
+            text:root.title
             font_size: '18sp'
             height: self.texture_size[1]
+            on_touch_down: root.view_product() if self.collide_point(*args[1].pos) else None
+
+
+        Label:
+            text: root.price
+            font_size: '18sp'
+            height: self.texture_size[1]
+
 
         Button:
             text: 'View Details'
             on_release: root.view_product()
-            height: dp(40)
+            height: dp(20)
 
 
 <ProductsScreen>:
@@ -26,5 +38,4 @@
         ScrollView:
             GridLayout:
                 id: products_layout
-                cols: 1
-                spacing: '10dp'
+                cols: 2
