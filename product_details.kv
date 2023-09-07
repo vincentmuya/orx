@@ -2,7 +2,6 @@
     BoxLayout:
         id: product_details_layout
         orientation: 'vertical'
-        padding: dp(10)
 
         Label:
             id: title_label  # Define the ID for the title label
@@ -29,7 +28,12 @@
 
     BoxLayout:
         orientation: 'vertical'
-        padding: dp(10)
+        padding: dp(100)
+
+        AsyncImage:
+            source: root.image_source  # Bind the source to the image_source property
+            size_hint_y: None
+            height: '200dp'  # Set the desired image height
 
         Label:
             text: root.title

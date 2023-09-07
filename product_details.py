@@ -10,7 +10,7 @@ class ProductDetailsScreen(Screen):
     title = StringProperty()
     price = StringProperty()
     description = StringProperty()
-
+    image_source = StringProperty()
 
     def load_details(self, product_details):
         print("Loading product_details...")
@@ -22,6 +22,8 @@ class ProductDetailsScreen(Screen):
         self.title = product_details['title']
         self.price = str(product_details['price'])
         self.description = product_details['description']
+        self.image_source = f"http://localhost:8000{product_details['image']}"
+
         title_label = self.ids.title_label
         title_label.text = self.title
         price_label = self.ids.price_label
