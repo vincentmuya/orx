@@ -6,7 +6,7 @@ from kivy.properties import StringProperty
 from kivy.lang import Builder
 from kivy.uix.image import AsyncImage
 
-Builder.load_file('products.kv')
+Builder.load_file('items.kv')
 
 
 class ItemsCard(BoxLayout):
@@ -18,27 +18,34 @@ class ItemsCard(BoxLayout):
 
 
 class ItemsScreen(Screen):
-    def items(self):
-        response = requests.get(f'http://localhost:8000/api/product/')
-        print("Items", response)
+    def __init__(self, **kwargs):
+        super(ItemsScreen, self).__init__(**kwargs)
+        self.load_items()
 
+    def load_items(self):
+        response = requests.get(f'http://localhost:8000/api/product/')
         if response.status_code == 200:
             items = response.json()
-            print("Items", items)
-            self.load_items(items)
+            print("items:", items)
 
-            # Access the ScreenManager through the App instance
-            app = App.get_running_app()
-            items_screen = app.root.get_screen('items')
+            self.clear_items()  # Clear any existing items before loading new ones
+            for item in items:
+                full_image_url = f"http://localhost:8000{item['image']}"
+                items_card = ItemsCard(
+                    title=item['title'],
+                    price=str(item['price']),
+                    image_source=full_image_url,
+                    product_id=str(item['id']),
+                    slug=item['slug']
+                )
+                self.add_item(items_card)
 
-            # Load the items into the ItemsScreen instance
-            items_screen.load_items(items)
-
-    def load_items(self, items):
+    def clear_items(self):
+        # Clear the items_layout before adding new items
         items_layout = self.ids.items_layout
         items_layout.clear_widgets()
-        for item in items:
 
-            items_card = ItemsCard(title=item['title'], price=str(item['price']), image_source=item['image'], product_id=str(item['id']), slug=item['slug'])
-            items_layout.add_widget(items_card)
-            pass  # Implement this method to update your UI
+    def add_item(self, item):
+        # Add a new item to the items_layout
+        items_layout = self.ids.items_layout
+        items_layout.add_widget(item)

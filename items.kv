@@ -1,33 +1,29 @@
 <ItemsCard>:
     BoxLayout:
         orientation: 'vertical'
-        padding: dp(100)
-        spacing: '-50dp'
-
+        spacing: '50dp'  # Adjust the spacing between elements
 
         AsyncImage:
             id: image_source
-            source: root.image_source  # Bind the source to the image_source property
-            size_hint_y: None
-            height: '200dp'  # Set the desired image height
-
+            source: root.image_source
+            size_hint: 1, None
+            height: '200dp'
 
         Label:
-            text:root.title
+            text: root.title
             font_size: '18sp'
-            height: self.texture_size[1]
-
+            size_hint_y: None
+            height: '20dp'
 
         Label:
             text: root.price
             font_size: '18sp'
-            height: self.texture_size[1]
-
+            size_hint_y: None
+            height: '20dp'
 
         Button:
             text: 'View Details'
             on_release: root.view_product()
-            height: dp(20)
 
 
 <ItemsScreen>:
