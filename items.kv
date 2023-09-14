@@ -1,0 +1,39 @@
+<ItemsCard>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(100)
+        spacing: '-50dp'
+
+
+        AsyncImage:
+            id: image_source
+            source: root.image_source  # Bind the source to the image_source property
+            size_hint_y: None
+            height: '200dp'  # Set the desired image height
+
+
+        Label:
+            text:root.title
+            font_size: '18sp'
+            height: self.texture_size[1]
+
+
+        Label:
+            text: root.price
+            font_size: '18sp'
+            height: self.texture_size[1]
+
+
+        Button:
+            text: 'View Details'
+            on_release: root.view_product()
+            height: dp(20)
+
+
+<ItemsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        ScrollView:
+            GridLayout:
+                id: items_layout
+                cols: 2

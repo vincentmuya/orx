@@ -5,6 +5,8 @@ from subcategories import SubcategoriesScreen
 from products import ProductsScreen
 from product_details import ProductDetailsScreen
 from new_product import AddProductsScreen
+from items import ItemsScreen
+
 
 class MyApp(App):
     def build(self):
@@ -37,9 +39,13 @@ class MyApp(App):
         product_details_screen = ProductDetailsScreen(name='product_details')
         self.screen_manager.add_widget(product_details_screen)
 
-        # Create the ProductsDetailsScreen instance and add it to the ScreenManager
+        # Create the AddProductScreen instance and add it to the ScreenManager
         add_product_screen = AddProductsScreen(name='load_form_fields_from_api')
         self.screen_manager.add_widget(add_product_screen)
+
+        # Create the ItemsScreen instance and add it to the ScreenManager
+        items_screen = ItemsScreen(name='items')
+        self.screen_manager.add_widget(items_screen)
 
         return self.screen_manager
 
