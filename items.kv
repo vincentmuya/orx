@@ -1,29 +1,30 @@
 <ItemsCard>:
     BoxLayout:
         orientation: 'vertical'
-        spacing: '50dp'  # Adjust the spacing between elements
+        spacing: '10dp'  # Adjust the spacing between elements
 
         AsyncImage:
             id: image_source
             source: root.image_source
             size_hint: 1, None
             height: '200dp'
+            on_touch_down: root.view_product() if self.collide_point(*args[1].pos) else None
+
 
         Label:
             text: root.title
             font_size: '18sp'
             size_hint_y: None
             height: '20dp'
+            on_touch_down: root.view_product() if self.collide_point(*args[1].pos) else None
 
         Label:
             text: root.price
             font_size: '18sp'
             size_hint_y: None
             height: '20dp'
+            on_touch_down: root.view_product() if self.collide_point(*args[1].pos) else None
 
-        Button:
-            text: 'View Details'
-            on_release: root.view_product()
 
 
 <ItemsScreen>:
